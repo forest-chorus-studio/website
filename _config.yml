@@ -1,0 +1,3 @@
+remote_theme: jekyll/jekyll-redirect-from
+plugins:
+  - jekyll-redirect-from
