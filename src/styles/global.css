@@ -1,0 +1,89 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --color-cream: #f5f1e9;
+    --color-sage: #8a9b68;
+    --color-teal: #5d8aa8;
+    --color-coral: #e8a87c;
+    --color-gold: #d4b896;
+    --color-offwhite: #f9f7f3;
+    --color-charcoal: #2e2e2e;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-offwhite text-charcoal font-body antialiased;
+  }
+
+  h1, h2, h3, h4 {
+    @apply font-sans tracking-tight;
+  }
+
+  ::selection {
+    background-color: var(--color-sage);
+    color: var(--color-offwhite);
+  }
+}
+
+@layer components {
+  .container-wide {
+    @apply mx-auto w-full max-w-6xl px-5 sm:px-8;
+  }
+
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-medium tracking-wide transition-colors duration-200;
+  }
+
+  .btn-primary {
+    @apply btn bg-sage text-offwhite hover:bg-sage-dark;
+  }
+
+  .btn-secondary {
+    @apply btn bg-cream text-charcoal hover:bg-gold;
+  }
+
+  .btn-outline {
+    @apply btn border border-sage/40 text-charcoal hover:bg-sage hover:text-offwhite;
+  }
+
+  .card {
+    @apply rounded-2xl bg-offwhite p-6 shadow-soft ring-1 ring-charcoal/5;
+  }
+
+  .eyebrow {
+    @apply font-sans text-xs font-semibold uppercase tracking-[0.2em] text-sage;
+  }
+
+  .section-title {
+    @apply font-serif text-3xl sm:text-4xl text-charcoal;
+  }
+}
+
+/* Fade-in on scroll, toggled by IntersectionObserver in BaseLayout. */
+.reveal {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  html {
+    scroll-behavior: auto;
+  }
+}

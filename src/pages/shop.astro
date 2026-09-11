@@ -1,0 +1,70 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { Image } from 'astro:assets';
+import EtsyCTA from '../components/EtsyCTA.astro';
+import { site, links, book, galleryItems } from '../config';
+
+const shopPieces = galleryItems.slice(0, 4);
+---
+
+<BaseLayout
+  title={`Shop — ${site.name}`}
+  description="Shop original embroidery, patterns, and the artist's book via the Forest Chorus Studio Etsy shop."
+>
+  <section class="container-wide pt-16 pb-8 reveal">
+    <p class="eyebrow">Shop</p>
+    <h1 class="section-title mt-3">Bring a piece home</h1>
+    <p class="mt-4 max-w-prose font-body text-base leading-relaxed text-charcoal/70">
+      Original hoops, downloadable patterns, and the embroidery guide are all available through the Etsy shop. New
+      work is added seasonally — follow along for first access.
+    </p>
+  </section>
+
+  <section class="container-wide py-10 reveal">
+    <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+      {shopPieces.map((it) => (
+        <a href={links.etsy} rel="noopener noreferrer" target="_blank" class="group block">
+          <div class="relative overflow-hidden rounded-2xl bg-cream ring-1 ring-charcoal/5 aspect-[4/5]">
+            <Image
+              src={it.image}
+              alt={`${it.title} — available as an original embroidery piece`}
+              widths={[300, 500, 760]}
+              sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
+              loading="lazy"
+              class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.04]"
+            />
+          </div>
+          <p class="mt-3 font-sans text-sm font-medium text-charcoal group-hover:text-sage-dark">{it.title}</p>
+          <p class="text-sm text-charcoal/55">Original · {it.year}</p>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <section class="bg-cream">
+    <div class="container-wide grid items-center gap-10 py-16 sm:grid-cols-5 reveal">
+      <div class="sm:col-span-2">
+        <div class="mx-auto max-w-xs overflow-hidden rounded-2xl bg-offwhite p-6 shadow-soft">
+          <Image
+            src={book.cover}
+            alt={`Cover of "${book.title}"`}
+            widths={[200, 340]}
+            sizes="(min-width: 640px) 320px, 80vw"
+            loading="lazy"
+            class="mx-auto h-auto w-full rounded-lg shadow-soft"
+          />
+        </div>
+      </div>
+      <div class="sm:col-span-3">
+        <p class="eyebrow">The Book</p>
+        <h2 class="section-title mt-3">{book.title}</h2>
+        <p class="mt-5 max-w-prose font-body text-base leading-relaxed text-charcoal/80">{book.description}</p>
+        <div class="mt-8">
+          <a href={book.buyHref} rel="noopener noreferrer" target="_blank" class="btn-primary">{book.buyLabel}</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <EtsyCTA />
+</BaseLayout>

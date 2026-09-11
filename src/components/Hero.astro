@@ -1,0 +1,61 @@
+---
+import { Image } from 'astro:assets';
+import { site, heroImage } from '../config';
+
+export interface Props {
+  image?: ImageMetadata;
+  eyebrow?: string;
+  title?: string;
+  tagline?: string;
+  cta?: { label: string; href: string };
+  ctaSecondary?: { label: string; href: string };
+}
+
+const {
+  image = heroImage,
+  eyebrow = 'Independent Textile Artist',
+  title = site.name,
+  tagline = site.tagline,
+  cta = { label: 'Explore the Gallery', href: '/gallery' },
+  ctaSecondary,
+} = Astro.props;
+---
+
+<section class="relative isolate overflow-hidden">
+  <div class="absolute inset-0 -z-10">
+    <Image
+      src={image}
+      alt="Mountain landscape embroidery by Forest Chorus Studio, stitched in sage greens and muted teals"
+      widths={[480, 800, 1200, 1680]}
+      sizes="100vw"
+      loading="eager"
+      class="h-full w-full object-cover"
+    />
+    <div class="absolute inset-0 bg-gradient-to-b from-charcoal/45 via-charcoal/35 to-charcoal/55"></div>
+  </div>
+
+  <div class="container-wide flex min-h-[70vh] flex-col justify-end py-16 sm:min-h-[78vh] sm:py-24">
+    <div class="max-w-2xl reveal">
+      <p class="font-sans text-xs font-semibold uppercase tracking-[0.25em] text-offwhite/85">
+        {eyebrow}
+      </p>
+      <h1 class="mt-4 font-serif text-4xl leading-tight text-offwhite sm:text-6xl">
+        {title}
+      </h1>
+      <p class="mt-4 max-w-xl font-body text-lg italic text-offwhite/90">
+        {tagline}
+      </p>
+      <div class="mt-8 flex flex-wrap items-center gap-3">
+        <a href={cta.href} class="btn-primary">{cta.label}</a>
+        {ctaSecondary && (
+          <a
+            href={ctaSecondary.href}
+            class="btn border border-offwhite/60 text-offwhite hover:bg-offwhite hover:text-charcoal"
+          >
+            {ctaSecondary.label}
+          </a>
+        )}
+      </div>
+    </div>
+  </div>
+</section>

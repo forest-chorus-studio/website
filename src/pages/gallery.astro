@@ -1,0 +1,22 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Gallery from '../components/Gallery.astro';
+import { site } from '../config';
+---
+
+<BaseLayout
+  title={`Gallery — ${site.name}`}
+  description="Browse the embroidery portfolio of Forest Chorus Studio — filter by Floral, Landscapes, Portraits, and more."
+>
+  <section class="container-wide pt-16 pb-8 reveal">
+    <p class="eyebrow">Portfolio</p>
+    <h1 class="section-title mt-3">Gallery</h1>
+    <p class="mt-4 max-w-prose font-body text-base leading-relaxed text-charcoal/70">
+      A growing collection of embroidery and textile art. Filter by category and tap any piece to view it up close.
+    </p>
+  </section>
+
+  <section class="container-wide pb-20">
+    <Gallery />
+  </section>
+</BaseLayout>

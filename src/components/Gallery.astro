@@ -1,0 +1,27 @@
+---
+import { getImage } from 'astro:assets';
+import GalleryLightbox from './GalleryLightbox.jsx';
+import { galleryItems, galleryCategories } from '../config';
+
+const resolved = await Promise.all(
+  galleryItems.map(async (it) => {
+    const img = await getImage({
+      src: it.image,
+      widths: [300, 500, 760],
+      format: 'webp',
+    });
+    return {
+      id: it.id,
+      src: img.src,
+      srcSet: img.srcSet.attribute,
+      alt: `${it.title} — ${it.category} embroidery by Forest Chorus Studio, ${it.year}`,
+      title: it.title,
+      year: it.year,
+      category: it.category,
+      description: it.description,
+    };
+  })
+);
+---
+
+<GalleryLightbox items={resolved} categories={[...galleryCategories]} client:load />

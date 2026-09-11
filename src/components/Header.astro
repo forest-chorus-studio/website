@@ -1,0 +1,99 @@
+---
+import { site, nav, links } from '../config';
+
+const current = Astro.url.pathname;
+const isActive = (href: string) =>
+  current === href || (href !== '/' && current.startsWith(href));
+---
+
+<header
+  class="sticky top-0 z-40 border-b border-charcoal/5 bg-offwhite/85 backdrop-blur supports-[backdrop-filter]:bg-offwhite/70"
+>
+  <div class="container-wide flex h-16 items-center justify-between">
+    <a href="/" class="flex items-center gap-2 font-sans text-lg font-semibold tracking-tight text-charcoal">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M12 2C9 6 7 9 7 13a5 5 0 0 0 10 0c0-4-2-7-5-11Z" fill="#8A9B68"/>
+        <path d="M12 7C10.5 9 9.5 10.5 9.5 12.5a2.5 2.5 0 0 0 5 0C14.5 10.5 13.5 9 12 7Z" fill="#D4B896"/>
+      </svg>
+      <span>{site.name}</span>
+    </a>
+
+    <nav aria-label="Primary" class="hidden items-center gap-1 md:flex">
+      {nav.map((item) => (
+        <a
+          href={item.href}
+          aria-current={isActive(item.href) ? 'page' : undefined}
+          class:list={[
+            'rounded-full px-3 py-2 text-sm font-medium transition-colors',
+            isActive(item.href)
+              ? 'bg-sage/15 text-sage-dark'
+              : 'text-charcoal/70 hover:text-charcoal',
+          ]}
+        >
+          {item.label}
+        </a>
+      ))}
+      {links.etsy && (
+        <a
+          href={links.etsy}
+          rel="noopener noreferrer"
+          target="_blank"
+          class="btn-primary ml-2 !py-2 !px-4"
+        >
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm2.4 13.8c-2.3 0-3.6-1.5-3.6-3.7 0-2.3 1.5-3.8 3.6-3.8 1.2 0 1.9.3 2.5.8l-.7 1.6c-.4-.3-1-.5-1.6-.5-1 0-1.6.7-1.6 1.9 0 1.2.6 1.9 1.6 1.9.6 0 1.2-.2 1.6-.5l.7 1.6c-.6.5-1.3.7-2.5.7Z"/></svg>
+          Etsy Shop
+        </a>
+      )}
+    </nav>
+
+    <button
+      type="button"
+      id="menu-toggle"
+      class="inline-flex items-center justify-center rounded-md p-2 text-charcoal md:hidden"
+      aria-label="Open menu"
+      aria-expanded="false"
+      aria-controls="mobile-menu"
+    >
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+    </button>
+  </div>
+
+  <div id="mobile-menu" class="hidden border-t border-charcoal/5 bg-offwhite md:hidden">
+    <nav aria-label="Mobile" class="container-wide flex flex-col gap-1 py-3">
+      {nav.map((item) => (
+        <a
+          href={item.href}
+          aria-current={isActive(item.href) ? 'page' : undefined}
+          class:list={[
+            'rounded-lg px-3 py-2 text-sm font-medium',
+            isActive(item.href) ? 'bg-sage/15 text-sage-dark' : 'text-charcoal/80',
+          ]}
+        >
+          {item.label}
+        </a>
+      ))}
+      {links.etsy && (
+        <a
+          href={links.etsy}
+          rel="noopener noreferrer"
+          target="_blank"
+          class="btn-primary mt-2 w-full"
+        >
+          Visit My Etsy Shop
+        </a>
+      )}
+    </nav>
+  </div>
+</header>
+
+<script>
+  const toggle = document.getElementById('menu-toggle');
+  const menu = document.getElementById('mobile-menu');
+  if (toggle && menu) {
+    toggle.addEventListener('click', () => {
+      const open = menu.classList.toggle('hidden') === false;
+      toggle.setAttribute('aria-expanded', String(open));
+      toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+    });
+  }
+</script>

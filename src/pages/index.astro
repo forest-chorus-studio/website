@@ -1,0 +1,43 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+import Card from '../components/Card.astro';
+import Testimonials from '../components/Testimonials.astro';
+import BookHighlight from '../components/BookHighlight.astro';
+import FutureLinks from '../components/FutureLinks.astro';
+import EtsyCTA from '../components/EtsyCTA.astro';
+import { galleryItems, site, links } from '../config';
+
+const featured = galleryItems.slice(0, 6);
+---
+
+<BaseLayout title={`${site.name} — ${site.tagline}`}>
+  <Hero ctaSecondary={links.etsy ? { label: 'Visit Etsy Shop', href: links.etsy } : undefined} />
+
+  <section class="container-wide py-20 reveal">
+    <div class="flex flex-wrap items-end justify-between gap-4">
+      <div>
+        <p class="eyebrow">Selected Works</p>
+        <h2 class="section-title mt-3">Featured Pieces</h2>
+      </div>
+      <a href="/gallery" class="btn-outline">View all</a>
+    </div>
+    <div class="mt-10 grid grid-cols-2 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      {featured.map((it) => (
+        <Card
+          image={it.image}
+          alt={`${it.title} — ${it.category} embroidery by Forest Chorus Studio, ${it.year}`}
+          title={it.title}
+          caption={`${it.category} · ${it.year}`}
+          href="/gallery"
+          aspect="aspect-[4/5]"
+        />
+      ))}
+    </div>
+  </section>
+
+  <Testimonials />
+  <BookHighlight />
+  <EtsyCTA />
+  <FutureLinks />
+</BaseLayout>

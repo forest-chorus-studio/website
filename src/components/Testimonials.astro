@@ -1,0 +1,26 @@
+---
+import { testimonials } from '../config';
+
+const toneMap = {
+  sage: 'bg-sage text-offwhite',
+  coral: 'bg-coral text-charcoal',
+  teal: 'bg-teal text-offwhite',
+};
+---
+
+<section class="container-wide py-20 reveal">
+  <p class="eyebrow">Praise &amp; Recognition</p>
+  <h2 class="section-title mt-3">Recognized &amp; Loved</h2>
+  <div class="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+    {testimonials.map((t) => (
+      <figure class:list={['rounded-2xl p-7 shadow-soft', toneMap[t.tone] ?? toneMap.sage]}>
+        <figcaption class="font-sans text-sm font-semibold uppercase tracking-[0.15em] opacity-90">
+          {t.title}
+        </figcaption>
+        <blockquote class="mt-4 font-body text-base leading-relaxed">
+          {t.body}
+        </blockquote>
+      </figure>
+    ))}
+  </div>
+</section>

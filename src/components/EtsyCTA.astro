@@ -1,0 +1,41 @@
+---
+import { links } from '../config';
+
+export interface Props {
+  title?: string;
+  body?: string;
+  label?: string;
+  href?: string;
+}
+
+const {
+  title = 'Visit My Etsy Shop',
+  body = 'Original hoops, patterns, and embroidered goods are available to purchase, with new pieces added seasonally.',
+  label = 'Shop on Etsy',
+  href = links.etsy,
+} = Astro.props;
+---
+
+<section class="container-wide py-20 reveal">
+  <div class="relative overflow-hidden rounded-3xl bg-teal px-8 py-12 text-offwhite sm:px-14 sm:py-16">
+    <div class="relative z-10 flex flex-col items-start gap-6 sm:flex-row sm:items-center sm:justify-between">
+      <div class="max-w-xl">
+        <p class="font-sans text-xs font-semibold uppercase tracking-[0.25em] text-offwhite/85">Shop</p>
+        <h2 class="mt-3 font-serif text-3xl text-offwhite sm:text-4xl">{title}</h2>
+        <p class="mt-4 font-body text-base leading-relaxed text-offwhite/85">{body}</p>
+      </div>
+      {href && (
+        <a
+          href={href}
+          rel="noopener noreferrer"
+          target="_blank"
+          class="btn bg-offwhite text-teal-dark hover:bg-gold hover:text-charcoal"
+        >
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18M16 10a4 4 0 0 1-8 0"/></svg>
+          {label}
+        </a>
+      )}
+    </div>
+    <svg class="pointer-events-none absolute -right-10 -top-10 h-48 w-48 text-offwhite/10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="5"/></svg>
+  </div>
+</section>

@@ -1,0 +1,113 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { Image } from 'astro:assets';
+import { site, links, galleryItems } from '../config';
+
+const portrait = galleryItems.find((g) => g.id === 'studio-thread') ?? galleryItems[0];
+const email = site.emailForInquiries;
+---
+
+<BaseLayout
+  title={`About — ${site.name}`}
+  description="The story and philosophy behind Forest Chorus Studio — handcrafted embroidery inspired by the natural world."
+>
+  <section class="container-wide pt-16 pb-12 reveal">
+    <div class="grid items-center gap-10 sm:grid-cols-5">
+      <div class="sm:col-span-2">
+        <div class="overflow-hidden rounded-2xl bg-cream p-4 shadow-soft">
+          <Image
+            src={portrait.image}
+            alt="The artist at work in the studio, hand-dyed threads arranged by season"
+            widths={[300, 500, 760]}
+            sizes="(min-width: 640px) 40vw, 100vw"
+            loading="lazy"
+            class="h-auto w-full rounded-xl object-cover"
+          />
+        </div>
+      </div>
+      <div class="sm:col-span-3">
+        <p class="eyebrow">About</p>
+        <h1 class="section-title mt-3">Stitching nature’s beauty, one thread at a time.</h1>
+        <p class="mt-6 max-w-prose font-body text-base leading-relaxed text-charcoal/80">
+          Forest Chorus Studio is the work of an independent artist drawn to the quiet patterns of the natural world.
+          Each piece begins with a walk — a fern unfurling, a meadow fading into mist — and ends in hoop: a small,
+          stitched reminder of that moment.
+        </p>
+        <p class="mt-4 max-w-prose font-body text-base leading-relaxed text-charcoal/80">
+          Working primarily with hand-dyed threads on undyed linen, the studio blends traditional stitches with a
+          modern, earthy palette. The result is textile art that feels both crafted and contemporary — made to be
+          lived with, not just looked at.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-cream">
+    <div class="container-wide py-16 reveal">
+      <blockquote class="mx-auto max-w-3xl text-center font-serif text-2xl leading-relaxed text-charcoal sm:text-3xl">
+        “Stitching nature’s beauty, one thread at a time.”
+      </blockquote>
+      <p class="mt-6 text-center font-sans text-xs font-semibold uppercase tracking-[0.25em] text-sage-dark">
+        — Forest Chorus Studio
+      </p>
+    </div>
+  </section>
+
+  <section id="contact" class="container-wide py-20 reveal">
+    <div class="mx-auto max-w-2xl">
+      <p class="eyebrow">Contact</p>
+      <h2 class="section-title mt-3">Get in Touch</h2>
+      <p class="mt-4 max-w-prose font-body text-base leading-relaxed text-charcoal/70">
+        For commissions, press, or licensing inquiries, send a note using the form below or email directly.
+      </p>
+      {links.etsy && (
+        <p class="mt-4 font-body text-sm text-charcoal/70">
+          Looking to buy? Visit the <a href={links.etsy} rel="noopener noreferrer" target="_blank" class="font-medium text-sage-dark underline underline-offset-2 hover:text-sage">Etsy shop</a>.
+        </p>
+      )}
+
+      <form class="mt-8 grid gap-4" action={`mailto:${email}`} method="post" enctype="text/plain">
+        <div class="grid gap-4 sm:grid-cols-2">
+          <label class="block">
+            <span class="font-sans text-sm font-medium text-charcoal">Name</span>
+            <input
+              type="text"
+              name="name"
+              required
+              autocomplete="name"
+              class="mt-1 w-full rounded-lg border border-charcoal/15 bg-offwhite px-4 py-2.5 text-sm outline-none focus:border-sage focus:ring-2 focus:ring-sage/30"
+              placeholder="Your name"
+            />
+          </label>
+          <label class="block">
+            <span class="font-sans text-sm font-medium text-charcoal">Email</span>
+            <input
+              type="email"
+              name="email"
+              required
+              autocomplete="email"
+              class="mt-1 w-full rounded-lg border border-charcoal/15 bg-offwhite px-4 py-2.5 text-sm outline-none focus:border-sage focus:ring-2 focus:ring-sage/30"
+              placeholder="you@example.com"
+            />
+          </label>
+        </div>
+        <label class="block">
+          <span class="font-sans text-sm font-medium text-charcoal">Message</span>
+          <textarea
+            name="message"
+            required
+            rows="5"
+            class="mt-1 w-full rounded-lg border border-charcoal/15 bg-offwhite px-4 py-2.5 text-sm outline-none focus:border-sage focus:ring-2 focus:ring-sage/30"
+            placeholder="Tell me a little about your inquiry…"
+          ></textarea>
+        </label>
+        <div>
+          <button type="submit" class="btn-primary">Send Message</button>
+        </div>
+        <p class="text-xs text-charcoal/50">
+          This form opens your email client. For a hosted form, connect a provider such as Netlify Forms or Formspree.
+        </p>
+      </form>
+    </div>
+  </section>
+</BaseLayout>

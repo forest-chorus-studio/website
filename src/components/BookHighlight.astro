@@ -1,0 +1,33 @@
+---
+import { Image } from 'astro:assets';
+import { book } from '../config';
+---
+
+<section class="bg-cream">
+  <div class="container-wide grid items-center gap-10 py-20 sm:grid-cols-5 reveal">
+    <div class="sm:col-span-2">
+      <div class="mx-auto max-w-xs overflow-hidden rounded-2xl bg-offwhite p-6 shadow-soft">
+        <Image
+          src={book.cover}
+          alt={`Cover of the book "${book.title}" by Forest Chorus Studio`}
+          widths={[200, 340]}
+          sizes="(min-width: 640px) 320px, 80vw"
+          loading="lazy"
+          class="mx-auto h-auto w-full rounded-lg shadow-soft"
+        />
+      </div>
+    </div>
+    <div class="sm:col-span-3">
+      <p class="eyebrow">My Embroidery Journey</p>
+      <h2 class="section-title mt-3">{book.title}</h2>
+      <p class="mt-5 max-w-prose font-body text-base leading-relaxed text-charcoal/80">
+        {book.description}
+      </p>
+      <div class="mt-8">
+        <a href={book.buyHref} rel="noopener noreferrer" target="_blank" class="btn-primary">
+          {book.buyLabel}
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
